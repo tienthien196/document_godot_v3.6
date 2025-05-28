@@ -7,7 +7,8 @@ var server_port = 4242
 var client_address = "127.0.0.1"
 
 func _ready():
-	# 1. Thiết lập thuộc tính allow_object_decoding
+	# 1. Thiết lập thuộc tính allow_object_decoding 
+	#---- cho phép decode object data-----
 	udp_peer.set_allow_object_decoding(true)
 	if udp_peer.is_object_decoding_allowed():
 		print("Cho phép giải mã object trong get_var/put_var.")
@@ -41,7 +42,7 @@ func _ready():
 			print("Lỗi khi thiết lập địa chỉ đích cho client: ", err)
 			return
 	
-	# 4. Gửi dữ liệu mẫu (raw packet) nếu là client
+	# 4. Gửi dữ liệu mẫu ------(raw packet)----- nếu là client
 	if not is_server:
 		var raw_data = "Hello, UDP Server!".to_utf8()
 		var err = udp_peer.put_packet(raw_data)
@@ -50,7 +51,7 @@ func _ready():
 		else:
 			print("Lỗi khi gửi gói tin thô: ", err)
 		
-		# 5. Gửi dữ liệu Variant
+		# 5. Gửi dữ liệu----- Variant-------
 		var variant_data = {"message": "Hello from client", "value": 42}
 		err = udp_peer.put_var(variant_data, true)
 		if err == OK:
@@ -67,6 +68,7 @@ func _process(delta):
 		# 7. Nhận và xử lý gói tin thô
 		var packet = udp_peer.get_packet()
 		var packet_error = udp_peer.get_packet_error()
+		
 		if packet_error == OK:
 			print("Nhận gói tin thô: ", packet.get_string_from_utf8())
 		else:
