@@ -46,6 +46,8 @@ func _ready():
 	# Đặt lại vị trí đọc về đầu buffer
 	peer.seek(0)
 
+
+	
 	# Đọc số nguyên có dấu
 	print("get_8: ", peer.get_8())        # -100
 	print("get_16: ", peer.get_16())      # -10000
